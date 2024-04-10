@@ -1,0 +1,84 @@
+[
+  {
+    "model": "fitlogapp.musclepart",
+    "pk": 1,
+    "fields": {
+      "part_name": "胸"
+    }
+  },
+  {
+    "model": "fitlogapp.musclepart",
+    "pk": 2,
+    "fields": {
+      "part_name": "背中"
+    }
+  },
+  {
+    "model": "fitlogapp.musclepart",
+    "pk": 3,
+    "fields": {
+      "part_name": "脚"
+    }
+  },
+  {
+    "model": "fitlogapp.musclepart",
+    "pk": 4,
+    "fields": {
+      "part_name": "肩"
+    }
+  },
+  {
+    "model": "fitlogapp.musclepart",
+    "pk": 5,
+    "fields": {
+      "part_name": "腕"
+    }
+  },
+  {
+    "model": "fitlogapp.musclepart",
+    "pk": 6,
+    "fields": {
+      "part_name": "腹"
+    }
+  },
+  {
+    "model": "fitlogapp.Exercise",
+    "pk": 1,
+    "fields": {
+      "name": "ベンチプレス",
+      "muscle_part": 1
+    }
+  },
+  {
+    "model": "fitlogapp.Exercise",
+    "pk": 2,
+    "fields": {
+      "name": "デッドリフト",
+      "muscle_part": 2
+    }
+  },
+  {
+    "model": "fitlogapp.Exercise",
+    "pk": 3,
+    "fields": {
+      "name": "スクワット",
+      "muscle_part": 3
+    }
+  },
+  {
+    "model": "fitlogapp.Exercise",
+    "pk": 4,
+    "fields": {
+      "name": "ラッドプルダウン",
+      "muscle_part": 2
+    }
+  },
+  {
+    "model": "fitlogapp.Exercise",
+    "pk": 5,
+    "fields": {
+      "name": "インクラインダンベルプレス",
+      "muscle_part": 1
+    }
+  }
+]

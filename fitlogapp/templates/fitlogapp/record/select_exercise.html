@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block page_content %}
+
+<h2>トレーニングを選択</h2>
+
+{% for part_info in exercises_by_part %}
+<h2>{{ part_info.part.part_name }}</h2>
+<ul>
+  {% for exercise in part_info.exercises %}
+
+  <li>
+    <a href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
+      >{{ exercise.name }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %} {% endblock page_content %}

@@ -1,0 +1,22 @@
+<!-- workout_chart.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workout Chart</title>
+    <!-- Chart.jsを読み込む -->
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <a href='{% url "workouts" %}'>トレーニング記録を修正</a>
+    <a href='{% url "bodyweights" %}'>体重の記録を修正</a>
+    <canvas id="lineChart" width="400" height="200"></canvas>
+    <script>
+      const lineConfig = JSON.parse('{{ line_config|escapejs }}');
+      const lineCtx = document.getElementById('lineChart').getContext('2d');
+
+      // Chartを描画する
+      new Chart(lineCtx, lineConfig);
+    </script>
+  </body>
+</html>

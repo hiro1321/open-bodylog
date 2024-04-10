@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>体重の記録</title>
+  </head>
+  <body>
+    <h1>体重の記録</h1>
+    <a href="{% url 'add_bodyweight' %}">追加</a>
+    <ul>
+      {% for bodyweight in bodyweights %}
+      <li>
+        {{ bodyweight.date }}_{{ bodyweight.body_weight }}kg
+        <a href="{% url 'edit_bodyweight' bodyweight_id=bodyweight.pk %}">
+          編集
+        </a>
+        <form
+          method="post"
+          action="{% url 'delete_bodyweight' bodyweight.id %}"
+        >
+          {% csrf_token %}
+          <button
+            type="submit"
+            onclick="return confirm('投稿を削除してよろしいでしょうか？')"
+          >
+            削除
+          </button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
