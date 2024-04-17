@@ -1,3 +1,6 @@
-## seed データの読み込み
+## コマンドメモ
 
-python manage.py loaddata fitlogapp/fixtures/initial_data.json
+- seed データの読み込み
+  ```
+  python manage.py loaddata fitlogapp/fixtures/initial_data.json
+  ```
