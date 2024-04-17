@@ -1,0 +1,55 @@
+<button type="button" class="hamburger" onclick="navbarToggle()">
+  <div class="hamburger_span">
+    <span></span>
+  </div>
+</button>
+
+<div class="loggedin_navbar">
+  <a href='{% url "show_user"  user.custom_username %}'>
+    自分のプロフィールを表示
+  </a>
+  <a href='{% url "edit_profile" %}'> プロフィールを編集 </a>
+  <a href='{% url "bodyweights" %}'>体重記録を修正</a>
+  <a href='{% url "workouts" %}'>トレーニング記録を修正</a>
+  <a href='{% url "logout" %}'>ログアウト</a>
+</div>
+
+<script>
+  const hamburgerBtn = document.querySelector('.hamburger');
+  const navbar = document.querySelector('.loggedin_navbar');
+
+  const navbarToggle = () => {
+    hamburgerBtn.classList.toggle('open');
+    navbar.classList.toggle('open');
+  };
+</script>
+
+{% load static %}
+<div class="loggedin_footer_menu">
+  <ul>
+    <li>
+      <a href='{% url "my_page" %}'>
+        <img src="{% static 'images/user_icon.png' %}" alt="ホーム" />
+      </a>
+    </li>
+    <li>
+      <a href='{% url "select_exercise" %}'>
+        <img
+          src="{% static 'images/training_icon.png' %}"
+          alt="トレーニングを記録"
+        />
+      </a>
+    </li>
+    <li>
+      <a href='{% url "record_bodyweight" %}'>
+        <img src="{% static 'images/bodyweight_icon.png' %}" alt="体重を記録" />
+      </a>
+    </li>
+
+    <li>
+      <a href='{% url "create_post" %}'>
+        <img src="{% static 'images/post_icon.png' %}" alt="投稿" />
+      </a>
+    </li>
+  </ul>
+</div>

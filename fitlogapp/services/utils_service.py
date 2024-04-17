@@ -4,19 +4,23 @@ from datetime import datetime, timedelta
 import random
 
 
-def get_week_dates() -> List[datetime]:
+def get_target_period_dates(period_date: int, step: int) -> List[datetime]:
     """
-    前1週間分のdatetimeのリストを取得(昇順)
+    対象期間のdatetimeのリストを取得(昇順)
+    Args:
+        period(int): 対象範囲
+        step(int): 日付の感覚
+    Returns:
+        List[datetime]: 対象期間の日付のリスト
     """
     current_date = timezone.now()
-    week_dates = []
-
-    for i in range(7):
+    target_date = []
+    for i in range(0, period_date, step):
         delta = timedelta(days=i)
         past_date = current_date - delta
-        week_dates.append(past_date)
+        target_date.append(past_date)
 
-    return sorted(week_dates)
+    return sorted(target_date)
 
 
 def generate_random_color():

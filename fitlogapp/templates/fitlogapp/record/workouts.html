@@ -1,0 +1,16 @@
+{% extends "fitlogapp/components/base.html" %} {% block page_content %}
+<h2>トレーニング記録一覧</h2>
+<a href="{% url 'add_workout' %}">追加</a>
+<ul>
+  {% for workout in workouts %}
+  <li>
+    {{ workout }}
+    <a href="{% url 'edit_workout' workout_id=workout.pk %}"> 編集 </a>
+    <form method="post" action="{% url 'delete_workout' workout.id %}">
+      {% csrf_token %}
+      <button type="submit">削除</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock page_content %}

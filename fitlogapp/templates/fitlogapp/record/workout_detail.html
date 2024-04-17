@@ -1,3 +1,4 @@
+{% extends "fitlogapp/components/base.html" %} {% block page_content %}
 <div class="container mt-5">
   <h2>トレーニング記録</h2>
 
@@ -9,7 +10,7 @@
   </ul>
   {% endif %}
 
-  <form method="post" action="{% url 'add_workout' exercise.id %}">
+  <form method="post" action="{% url 'submit_workout' exercise.id %}">
     {% csrf_token %}
     <div class="mb-3">
       <label for="weight" class="form-label">重量（kg）:</label>
@@ -118,3 +119,4 @@
     }
   });
 </script>
+{% endblock page_content %}

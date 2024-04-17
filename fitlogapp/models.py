@@ -60,7 +60,7 @@ class MusclePart(models.Model):
 
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField("トレーニング種目名", max_length=100)
     muscle_part = models.ForeignKey(MusclePart, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -70,9 +70,9 @@ class Exercise(models.Model):
 class Workout(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    date = models.DateField()
-    reps = models.PositiveIntegerField()
-    weight = models.FloatField()
+    date = models.DateField("日付")
+    reps = models.PositiveIntegerField("rep数")
+    weight = models.FloatField("重量")
 
     def __str__(self):
         return f"{self.id}_{self.user.custom_username} - {self.exercise.name} on {self.date}"
@@ -81,9 +81,9 @@ class Workout(models.Model):
 class Profile(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     profile_image = models.ImageField(
-        upload_to="profile_images/", null=True, blank=True
+        "イメージ", upload_to="profile_images/", null=True, blank=True
     )
-    bio = models.TextField(blank=True)
+    bio = models.TextField("自己紹介文", blank=True)
 
     def __str__(self):
         return f"{self.user.custom_username}'s Profile"
@@ -92,7 +92,7 @@ class Profile(models.Model):
 class BodyWeight(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     body_weight = models.DecimalField(
-        max_digits=5, decimal_places=2, null=True, blank=True
+        "体重", max_digits=5, decimal_places=2, null=True, blank=True
     )
     date = models.DateField()
 
@@ -102,9 +102,11 @@ class BodyWeight(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    content = models.TextField()
-    image = models.ImageField(upload_to="post_images/", null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField("本文")
+    image = models.ImageField(
+        "イメージ", upload_to="post_images/", null=True, blank=True
+    )
+    created_at = models.DateTimeField("投稿日", auto_now_add=True)
     likes = models.ManyToManyField(CustomUser, related_name="liked_posts", blank=True)
 
     def __str__(self):

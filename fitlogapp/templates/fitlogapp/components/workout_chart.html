@@ -1,0 +1,116 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+<form id="periodRadioForm">
+  {% csrf_token %}
+  <label>
+    <input
+      type="radio"
+      name="radio"
+      class="radio"
+      value="week"
+      checked="checked"
+    />1週間
+  </label>
+  <label>
+    <input type="radio" name="radio" class="radio" value="year" />1年間
+  </label>
+  <label>
+    <input type="radio" name="radio" class="radio" value="all" />全期間
+  </label>
+</form>
+
+<form id="setRadioForm">
+  {% csrf_token %}
+  <label>
+    <input
+      type="radio"
+      name="radio"
+      class="radio"
+      value="max"
+      checked="checked"
+    />MAX
+  </label>
+  <label>
+    <input
+      type="radio"
+      name="radio"
+      class="radio"
+      value="set"
+      onclick="toggleSetInputs(this)"
+    />セット
+  </label>
+</form>
+<button type="button" onclick="submitSelectChart()">決定</button>
+
+<div id="setInputs" style="display: none">
+  <label>Rep:</label>
+  <input type="number" name="rep" id="repInput" value="10" />
+  <label>セット数:</label>
+  <input type="number" name="sets" id="setInput" value="3" />
+</div>
+
+<canvas id="lineChart" width="400" height="200"></canvas>
+
+<script>
+  /* チャートの表示(初期) */
+  let lineConfig = JSON.parse('{{ line_config|escapejs }}');
+  let lineCtx = document.getElementById('lineChart').getContext('2d');
+  const userId = JSON.parse('{{ user_id }}');
+  let lineChart = new Chart(lineCtx, lineConfig);
+
+  /* チャートの表示(選択に応じて再表示) */
+  const submitSelectChart = async () => {
+    const periodForm = document.getElementById('periodRadioForm');
+    const periodValue = periodForm.querySelector(
+      'input[name="radio"]:checked'
+    ).value;
+    const setForm = document.getElementById('setRadioForm');
+    const setValue = setForm.querySelector('input[name="radio"]:checked').value;
+    console.log('setValue=' + setValue);
+    let repInput, setInput;
+    if (setValue == 'set') {
+      repInput = document.querySelector('#repInput').value;
+      setInput = document.querySelector('#setInput').value;
+    }
+
+    try {
+      const response = await fetch(`/create_chert/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+          userId: userId,
+          period: periodValue,
+          setValue: setValue,
+          repInput: repInput,
+          setInput: setInput,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('通信に失敗しました。');
+      }
+
+      console.log(response);
+      const data = await response.json();
+      lineConfig = JSON.parse(data.line_config);
+      if (lineChart) {
+        lineChart.destroy();
+      }
+      lineChart = new Chart(lineCtx, lineConfig);
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const toggleSetInputs = (radio) => {
+    const setInputs = document.getElementById('setInputs');
+    if (radio.checked && radio.value === 'set') {
+      setInputs.style.display = 'block';
+    } else {
+      setInputs.style.display = 'none';
+    }
+  };
+</script>

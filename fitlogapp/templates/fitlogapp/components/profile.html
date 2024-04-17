@@ -1,0 +1,47 @@
+<div>
+  {% with profile=profile_dto %}
+  <p>名前: {{ profile.username }}</p>
+  {% if profile.image_url %}
+  <img
+    src="{{ profile.image_url }}"
+    alt="Profile Image"
+    style="max-width: 200px"
+  />
+  {% endif %}
+  <p>紹介文: {{ profile.bio }}</p>
+  <button onclick="followUser('{{profile.user_id}}')">フォローする</button>
+  <p>
+    <a href="{% url 'following_users' profile.user_id %}">
+      フォロー数：{{profile.following_count}}
+    </a>
+  </p>
+  <a href="{% url 'followers_users' profile.user_id %}">
+    <p>フォロワー数：{{profile.followers_count}}</p>
+  </a>
+
+  {% endwith %}
+</div>
+
+{% csrf_token %}
+<script>
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  const followUser = async (userId) => {
+    try {
+      const response = await fetch(`/toggle_follow/${userId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ userId: userId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('通信に失敗しました。');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+</script>

@@ -1,0 +1,231 @@
+:root {
+  --color-block: #22211d;
+  --color-white: #fff;
+  --color-main: #ff5b5b;
+  --color-sub: #fbdede;
+  --fontsize-normal: 0.9em;
+  --fontsize-strong: 1.2em;
+  --footer-height: 70px;
+}
+/* ===============================================
+共通
+=============================================== */
+body {
+  background: #fffaf2;
+  width: 100%;
+  /* フォント設定 */
+  color: 22211D;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.2px;
+  color: var(--color-block);
+  margin: 0;
+  margin-bottom: var(--footer-height);
+}
+
+.main-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: var(--color-white);
+}
+
+p {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+h2 {
+  font-weight: 800;
+  font-family: 'Rampart One', sans-serif;
+  font-size: 1.8rem;
+  font-style: normal;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+}
+
+h2::before,
+h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 30px;
+  background-color: var(--color-main);
+  z-index: -1;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.2s;
+}
+
+h2::before {
+  top: 0;
+  left: 0;
+  clip-path: polygon(100% 0%, 0% 40%, 0% 0%);
+  animation-name: slideInFromLeft;
+}
+
+h2::after {
+  right: 0;
+  bottom: 0;
+  clip-path: polygon(100% 60%, 0% 100%, 100% 100%);
+  animation-name: slideInFromRight;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ===============================================
+ログイン後のナビバー
+=============================================== */
+.loggedin_navbar {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-sub);
+  margin: 0;
+  transform: translateX(100%);
+  transition: ease-in 0.3s;
+  padding-top: 20px;
+  padding-left: 20px;
+  z-index: 10;
+}
+
+.loggedin_navbar.open {
+  transform: translateX(20%);
+}
+
+.loggedin_navbar > a {
+  display: block;
+  left: auto;
+  padding: 10px 5px;
+  text-decoration: none;
+  font-size: var(--fontsize-strong);
+  margin-bottom: 20px;
+  border-top: solid var(--color-white) 0.5px;
+  border-left: solid var(--color-white) 0.5px;
+  background-color: var(--color-white);
+  position: relative;
+}
+.loggedin_navbar > a::after {
+  position: absolute;
+  content: '';
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-main);
+  clip-path: polygon(100% 60%, 0% 100%, 100% 100%);
+}
+
+.hamburger {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 11;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: var(--color-block);
+  cursor: pointer;
+  border: none;
+}
+
+.hamburger_span {
+  position: absolute;
+  width: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hamburger span,
+.hamburger span::after,
+.hamburger span::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(50%);
+  display: block;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.5s;
+}
+.hamburger span::before {
+  transform: translateY(-8px);
+}
+.hamburger span::after {
+  transform: translateY(6px);
+}
+.hamburger.open span {
+  background-color: transparent;
+}
+.hamburger.open span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.hamburger.open span::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/* ===============================================
+ログイン後のフッターメニュー
+=============================================== */
+.loggedin_footer_menu {
+  position: fixed;
+  width: 100%;
+  height: var(--footer-height);
+  bottom: 0px;
+  background-color: var(--color-block);
+  display: flex;
+  align-items: center;
+  z-index: 11;
+}
+
+.loggedin_footer_menu > ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.loggedin_footer_menu li {
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+}
+
+.loggedin_footer_menu img {
+  width: 100%;
+  height: auto;
+}
