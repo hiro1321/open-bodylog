@@ -3,15 +3,18 @@
 <h2>トレーニングを選択</h2>
 
 {% for part_info in exercises_by_part %}
-<h3>{{ part_info.part.part_name }}</h3>
-<ul>
-  {% for exercise in part_info.exercises %}
 
-  <li>
-    <a href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
-      >{{ exercise.name }}
-    </a>
-  </li>
-  {% endfor %}
-</ul>
+<div class="muscle_part_box">
+  <h3>{{ part_info.part.part_name }}</h3>
+  <ul>
+    {% for exercise in part_info.exercises %}
+
+    <li>
+      <a href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
+        >{{ exercise.name }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endfor %} {% endblock page_content %}

@@ -12,6 +12,8 @@ RECORD_DIR = "fitlogapp/record/"
 @login_required
 def record_bodyweight(request):
     """体重登録のview"""
+    # TODO:前回の記録を登録できるようにする
+    # TODO:スライドバーの上限値前回記録の+10%までにする
     if request.method == "POST":
         user = request.user
         weight = request.POST.get("weight")

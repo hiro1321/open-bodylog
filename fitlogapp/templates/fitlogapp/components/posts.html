@@ -1,35 +1,63 @@
 {% for post in posts %}
-<div>
-  <h3>{{ post.title }}</h3>
-  <p>{{ post.content }}</p>
-  <a href="{% url 'show_user' post.user.custom_username %}">
-    <p>Author: {{ post.user.custom_username }}</p>
-  </a>
-  <p>Created at: {{ post.created_at }}</p>
-  {% if post.image %}
-  <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 200px" />
-  {% endif %}
-  <a href="{% url 'liked_users' post.id %}">
-    <p id="likes-{{ post.id }}">いいね:</p>
-  </a>
-  <button onclick="likePost('{{post.id}}')">いいねする</button>
-  <!--  -->
-  {% if post.user == request.user %}
-  <a href="{% url 'edit_post' post.id %}">編集</a>
-  <form
-    method="post"
-    action="{% url 'delete_post' post.id %}"
-    style="display: inline"
-  >
-    {% csrf_token %}
-    <button
-      type="submit"
-      onclick="return confirm('投稿を削除してよろしいでしょうか？')"
+<div class="post_container">
+  <div class="post_flex_box">
+    <div class="post_author">
+      <div class="post_author_image">
+        {% load static %}
+        <a href="{% url 'show_user' post.user.custom_username %}">
+          <img
+            src="{% static 'images/user_icon.png' %}"
+            alt="プロフィール画像"
+          />
+        </a>
+      </div>
+
+      <p>{{ post.user.custom_username }}</p>
+    </div>
+    <div class="post-message">
+      <p>{{ post.content }}</p>
+      {% if post.image %}
+      <img
+        src="{{ post.image.url }}"
+        alt="Post Image"
+        style="max-width: 200px"
+      />
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="post_flex_box">
+    <p class="mr-20">投稿日: {{ post.created_at }}</p>
+
+    <!-- TODO:onclickイベントと紐づけ -->
+    <div id="likes-{{ post.id }}" class="heart mr-5"></div>
+    <!-- <button onclick="likePost('{{post.id}}')">いいねする</button> -->
+
+    <a href="{% url 'liked_users' post.id %}" class="like_count mr-20">：0</a>
+
+    <!--  -->
+    {% if post.user == request.user %}
+    <a href="{% url 'edit_post' post.id %}">
+      <img src="{% static 'images/pen_icon.png' %}" alt="編集" class="icon_image mr-20" />
+    </a>
+
+    <!-- TODO:onclickイベントと紐づけ -->
+    <img src="{% static 'images/garbage_can_icon.png' %}" alt="削除" class="icon_image mr-20" />
+    <!-- <form
+      method="post"
+      action="{% url 'delete_post' post.id %}"
+      style="display: inline"
     >
-      削除
-    </button>
-  </form>
-  {% endif %}
+      {% csrf_token %}
+      <button
+        type="submit"
+        onclick="return confirm('投稿を削除してよろしいでしょうか？')"
+      >
+        削除
+      </button> -->
+    </form>
+    {% endif %}
+  </div>
 </div>
 {% endfor %}
 <!-- -->
