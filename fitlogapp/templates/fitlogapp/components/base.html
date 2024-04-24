@@ -19,6 +19,11 @@
       href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@100..900&family=Rampart+One&display=swap"
       rel="stylesheet"
     />
+    <!-- google font_number -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=M+PLUS+1p&family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@100..900&family=Rampart+One&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="main-container">
@@ -36,37 +41,6 @@
       <!--  -->
       {% block page_content %} {% endblock %}
     </div>
-    <script>
-      (function (d) {
-        var config = {
-            kitId: 'ここにプロジェクトごとのIDが入る',
-            scriptTimeout: 3000,
-            async: true,
-          },
-          h = d.documentElement,
-          t = setTimeout(function () {
-            h.className =
-              h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive';
-          }, config.scriptTimeout),
-          tk = d.createElement('script'),
-          f = false,
-          s = d.getElementsByTagName('script')[0],
-          a;
-        h.className += ' wf-loading';
-        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
-        tk.async = true;
-        tk.onload = tk.onreadystatechange = function () {
-          a = this.readyState;
-          if (f || (a && a != 'complete' && a != 'loaded')) return;
-          f = true;
-          clearTimeout(t);
-          try {
-            Typekit.load(config);
-          } catch (e) {}
-        };
-        s.parentNode.insertBefore(tk, s);
-      })(document);
-    </script>
     <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

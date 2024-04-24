@@ -5,16 +5,18 @@
 {% for part_info in exercises_by_part %}
 
 <div class="muscle_part_box">
-  <h3>{{ part_info.part.part_name }}</h3>
-  <ul>
-    {% for exercise in part_info.exercises %}
+  <div class="muscle_part_title">
+    <p>{{ part_info.part.part_name }}</p>
+  </div>
 
-    <li>
-      <a href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
-        >{{ exercise.name }}
-      </a>
-    </li>
+  <div class="muscle_part_content_box">
+    {% for exercise in part_info.exercises %}
+    <a
+      href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
+      class="muscle_part_content_item"
+      >{{ exercise.name }}
+    </a>
     {% endfor %}
-  </ul>
+  </div>
 </div>
 {% endfor %} {% endblock page_content %}
