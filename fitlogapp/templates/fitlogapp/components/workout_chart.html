@@ -1,55 +1,68 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 
-<form id="periodRadioForm">
-  {% csrf_token %}
-  <label>
-    <input
-      type="radio"
-      name="radio"
-      class="radio"
-      value="week"
-      checked="checked"
-    />1週間
-  </label>
-  <label>
-    <input type="radio" name="radio" class="radio" value="year" />1年間
-  </label>
-  <label>
-    <input type="radio" name="radio" class="radio" value="all" />全期間
-  </label>
-</form>
-
-<form id="setRadioForm">
-  {% csrf_token %}
-  <label>
-    <input
-      type="radio"
-      name="radio"
-      class="radio"
-      value="max"
-      checked="checked"
-    />MAX
-  </label>
-  <label>
-    <input
-      type="radio"
-      name="radio"
-      class="radio"
-      value="set"
-      onclick="toggleSetInputs(this)"
-    />セット
-  </label>
-</form>
-<button type="button" onclick="submitSelectChart()">決定</button>
-
-<div id="setInputs" style="display: none">
-  <label>Rep:</label>
-  <input type="number" name="rep" id="repInput" value="10" />
-  <label>セット数:</label>
-  <input type="number" name="sets" id="setInput" value="3" />
+<h3>トレーニング記録</h3>
+<div class="workout_radio_box">
+  <p class="workout_radio_title">期間</p>
+  <form id="periodRadioForm">
+    {% csrf_token %}
+    <div class="workout_flex_box">
+      <input
+        type="radio"
+        name="radio"
+        value="week"
+        checked="checked"
+        id="week"
+      />
+      <label for="week">1週間 </label>
+      <input type="radio" name="radio" value="year" id="year" />
+      <label for="year">1年間 </label>
+      <input type="radio" name="radio" value="all" id="all" />
+      <label for="all">全期間</label>
+    </div>
+  </form>
 </div>
 
-<canvas id="lineChart" width="400" height="200"></canvas>
+<div class="workout_radio_box">
+  <p class="workout_radio_title">Reps</p>
+  <form id="setRadioForm">
+    {% csrf_token %}
+    <div class="workout_flex_box">
+      <input
+        type="radio"
+        name="radio"
+        value="max"
+        id="max"
+        checked="checked"
+        onclick="toggleSetInputs(this)"
+      />
+      <label for="max">MAX </label>
+      <input
+        type="radio"
+        name="radio"
+        value="set"
+        onclick="toggleSetInputs(this)"
+        id="set"
+      />
+      <label for="set">セット </label>
+    </div>
+  </form>
+
+  <div id="setInputs" class="mt-20">
+    <div class="flex-box">
+      <label class="mr-10 mt-P">Rep:</label>
+      <input type="number" name="rep" id="repInput" value="10" />
+    </div>
+    <div class="flex-box mt-10">
+      <label class="mr-10">セット数:</label>
+      <input type="number" name="sets" id="setInput" value="3" />
+    </div>
+  </div>
+</div>
+
+<button type="button" onclick="submitSelectChart()" class="btn workout_btn">
+  決定
+</button>
+<canvas id="lineChart" width="400" height="400" class="mt-20"></canvas>
 
 <script>
   /* チャートの表示(初期) */
@@ -108,9 +121,9 @@
   const toggleSetInputs = (radio) => {
     const setInputs = document.getElementById('setInputs');
     if (radio.checked && radio.value === 'set') {
-      setInputs.style.display = 'block';
+      setInputs.classList.add('setInputsActive');
     } else {
-      setInputs.style.display = 'none';
+      setInputs.classList.remove('setInputsActive');
     }
   };
 </script>

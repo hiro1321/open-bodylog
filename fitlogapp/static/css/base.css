@@ -99,8 +99,24 @@ h2::after {
   }
 }
 
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
 .mr-5 {
   margin-right: 5px;
+}
+
+.mr-10 {
+  margin-right: 10px;
 }
 
 .mr-20 {
@@ -546,4 +562,62 @@ p.profile_name {
 
 .my_contents {
   flex: 0 0 100%;
+}
+
+/* ===============================================
+チャートのレイアウト
+=============================================== */
+.workout_radio_box {
+  position: relative;
+  border: 1px solid black;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.workout_radio_title {
+  position: absolute;
+  top: -25px;
+  background-color: var(--color-white);
+  left: 10px;
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+input[type='radio'] + label {
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+input[type='radio']:checked + label {
+  background-color: var(--color-main);
+  color: var(--color-white);
+}
+
+.workout_flex_box {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#setInputs {
+  display: none;
+}
+
+#setInputs.setInputsActive {
+  display: block;
+}
+
+.workout_btn {
+  padding: 5px 20px;
+}
+
+#lineChart {
+ 
 }
