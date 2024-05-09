@@ -1,0 +1,129 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+<h3>トレーニング記録</h3>
+<div class="workout_radio_box">
+  <p class="workout_radio_title">期間</p>
+  <form id="periodRadioForm">
+    {% csrf_token %}
+    <div class="workout_flex_box">
+      <input
+        type="radio"
+        name="radio"
+        value="week"
+        checked="checked"
+        id="week"
+      />
+      <label for="week">1週間 </label>
+      <input type="radio" name="radio" value="year" id="year" />
+      <label for="year">1年間 </label>
+      <input type="radio" name="radio" value="all" id="all" />
+      <label for="all">全期間</label>
+    </div>
+  </form>
+</div>
+
+<div class="workout_radio_box">
+  <p class="workout_radio_title">Reps</p>
+  <form id="setRadioForm">
+    {% csrf_token %}
+    <div class="workout_flex_box">
+      <input
+        type="radio"
+        name="radio"
+        value="max"
+        id="max"
+        checked="checked"
+        onclick="toggleSetInputs(this)"
+      />
+      <label for="max">MAX </label>
+      <input
+        type="radio"
+        name="radio"
+        value="set"
+        onclick="toggleSetInputs(this)"
+        id="set"
+      />
+      <label for="set">セット </label>
+    </div>
+  </form>
+
+  <div id="setInputs" class="mt-20">
+    <div class="flex-box">
+      <label class="mr-10 mt-P">Rep:</label>
+      <input type="number" name="rep" id="repInput" value="10" />
+    </div>
+    <div class="flex-box mt-10">
+      <label class="mr-10">セット数:</label>
+      <input type="number" name="sets" id="setInput" value="3" />
+    </div>
+  </div>
+</div>
+
+<button type="button" onclick="submitSelectChart()" class="btn workout_btn">
+  決定
+</button>
+<canvas id="lineChart" width="400" height="400" class="mt-20"></canvas>
+
+<script>
+  /* チャートの表示(初期) */
+  let lineConfig = JSON.parse('{{ line_config|escapejs }}');
+  let lineCtx = document.getElementById('lineChart').getContext('2d');
+  const userId = JSON.parse('{{ user_id }}');
+  let lineChart = new Chart(lineCtx, lineConfig);
+
+  /* チャートの表示(選択に応じて再表示) */
+  const submitSelectChart = async () => {
+    const periodForm = document.getElementById('periodRadioForm');
+    const periodValue = periodForm.querySelector(
+      'input[name="radio"]:checked'
+    ).value;
+    const setForm = document.getElementById('setRadioForm');
+    const setValue = setForm.querySelector('input[name="radio"]:checked').value;
+    console.log('setValue=' + setValue);
+    let repInput, setInput;
+    if (setValue == 'set') {
+      repInput = document.querySelector('#repInput').value;
+      setInput = document.querySelector('#setInput').value;
+    }
+
+    try {
+      const response = await fetch(`/create_chert/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+          userId: userId,
+          period: periodValue,
+          setValue: setValue,
+          repInput: repInput,
+          setInput: setInput,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('通信に失敗しました。');
+      }
+
+      console.log(response);
+      const data = await response.json();
+      lineConfig = JSON.parse(data.line_config);
+      if (lineChart) {
+        lineChart.destroy();
+      }
+      lineChart = new Chart(lineCtx, lineConfig);
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const toggleSetInputs = (radio) => {
+    const setInputs = document.getElementById('setInputs');
+    if (radio.checked && radio.value === 'set') {
+      setInputs.classList.add('setInputsActive');
+    } else {
+      setInputs.classList.remove('setInputsActive');
+    }
+  };
+</script>

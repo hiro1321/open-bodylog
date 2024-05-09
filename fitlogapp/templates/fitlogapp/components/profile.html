@@ -1,0 +1,72 @@
+{% with profile=profile_dto %}
+<a href='{% url "show_user"  profile.username %}' class="link_text">
+  <div class="profile_box">
+    <!--  -->
+    <div class="profile_flex_box">
+      <div class="profile_left_box">
+        <div class="profile_image">
+          {% if profile.image_url %}
+          <img src="{{ profile.image_url }}" alt="Profile Image" />
+          {% else %} {% load static %}
+          <img
+            src="{% static 'images/user_icon.png' %}"
+            alt="プロフィール画像"
+          />
+          {% endif %}
+        </div>
+        <p class="profile_name">{{ profile.username }}</p>
+      </div>
+      <div class="profile_right_box">
+        <p>{{ profile.bio }}</p>
+      </div>
+    </div>
+    <div class="profile_flex_box al-center">
+      <a
+        href="{% url 'following_users' profile.user_id %}"
+        class="mr-20 link_text"
+      >
+        <span class="strong">{{profile.following_count}}</span>フォロー
+      </a>
+
+      <a
+        href="{% url 'followers_users' profile.user_id %}"
+        class="mr-20 link_text"
+      >
+        <span class="strong">{{profile.followers_count}}</span>フォロワー
+      </a>
+      {% if profile.user_id == request.user.id %}
+      <a href='{% url "edit_profile" %}' class="btn">
+        プロフィール<br />を編集
+      </a>
+      {% else %}
+      <button onclick="followUser('{{profile.user_id}}')" class="btn">
+        フォローする
+      </button>
+      {% endif %}
+    </div>
+  </div>
+  {% csrf_token %}
+</a>
+{% endwith %}
+<script>
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  const followUser = async (userId) => {
+    try {
+      const response = await fetch(`/toggle_follow/${userId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ userId: userId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('通信に失敗しました。');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+</script>

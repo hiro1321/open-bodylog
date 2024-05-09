@@ -23,6 +23,11 @@ User = get_user_model()
 
 
 def register(request):
+    """ユーザー登録のview"""
+    # TODO:user名に使える文字をあるアルファベットと_のみにする
+    # TODO:user名のほかに別名を登録できるようにする
+    # TODO:メールアドレスが登録済みの場合はエラーメッセージが表示されるようにする
+    # TODO:退会の機能を追加
     if request.method == "POST":
         email = request.POST.get("email")
         user_name = request.POST.get("user_name")
@@ -35,7 +40,7 @@ def register(request):
             user.verification_code = verification_code
             user.verification_code_created_at = timezone.now()
             user.save()
-            verification_link = f"{BASE_URL}/verify/{verification_code}/"
+            verification_link = BASE_URL + "/verify/" + verification_code + "/"
 
             with SMTP(
                 EMAIL_HOST,
@@ -54,33 +59,39 @@ def register(request):
                 msg["To"] = email
                 server.send_message(msg)
 
-            return render(request, "accounts/register_done.html")
-    return render(request, "accounts/register.html")
+            return render(request, "fitlogapp/accounts/register_done.html")
+    return render(request, "fitlogapp/accounts/register.html")
 
 
 def verify_email(request, verification_code):
+    """メール認証のview"""
+    # TODO:画面遷移後にボタンを押して承認の流れにする
+    # TODO:1日経過した場合を考慮
     user = User.objects.filter(verification_code=verification_code).first()
     if user and not user.is_email_verified:
         if (timezone.now() - user.verification_code_created_at).days < 1:
             user.is_email_verified = True
             user.save()
-            return render(request, "accounts/verify_email_success.html")
-    return render(request, "accounts/verify_email_fail.html")
+            return render(request, "fitlogapp/accounts/verify_email_success.html")
+    return render(request, "fitlogapp/accounts/verify_email_fail.html")
 
 
 def user_login(request):
+    """ログインのview"""
+    # TODO:password再設定の機能を追加
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect("home_page")
+            return redirect("my_page")
         else:
             messages.error(request, "ユーザー名またはパスワードが正しくありません。")
-    return render(request, "accounts/login.html")
+    return render(request, "fitlogapp/accounts/login.html")
 
 
 def user_logout(request):
+    """ログアウトのview"""
     logout(request)
     return redirect("top_page")

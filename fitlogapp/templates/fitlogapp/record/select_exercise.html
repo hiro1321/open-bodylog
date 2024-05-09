@@ -1,17 +1,22 @@
-{% extends "base.html" %} {% block page_content %}
+{% extends "fitlogapp/components/base.html" %} {% block page_content %}
 
 <h2>トレーニングを選択</h2>
 
 {% for part_info in exercises_by_part %}
-<h2>{{ part_info.part.part_name }}</h2>
-<ul>
-  {% for exercise in part_info.exercises %}
 
-  <li>
-    <a href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
+<div class="muscle_part_box">
+  <div class="muscle_part_title">
+    <p>{{ part_info.part.part_name }}</p>
+  </div>
+
+  <div class="muscle_part_content_box">
+    {% for exercise in part_info.exercises %}
+    <a
+      href="{% url 'exercise_detail' exercise_id=exercise.pk %}"
+      class="muscle_part_content_item"
       >{{ exercise.name }}
     </a>
-  </li>
-  {% endfor %}
-</ul>
+    {% endfor %}
+  </div>
+</div>
 {% endfor %} {% endblock page_content %}

@@ -1,0 +1,12 @@
+asgiref==3.8.1
+certifi==2024.2.2
+Django==5.0.4
+django-appconf==1.0.6
+django-compressor==4.4
+django-environ==0.11.2
+django-sass-processor==1.4
+libsass==0.23.0
+pillow==10.3.0
+rcssmin==1.1.1
+rjsmin==1.2.1
+sqlparse==0.4.4

@@ -1,0 +1,97 @@
+{% for post in posts %}
+<div class="post_container">
+  <div class="post_flex_box">
+    <div class="post_author">
+      <div class="post_author_image">
+        {% load static %}
+        <a href="{% url 'show_user' post.user.custom_username %}">
+          <img
+            src="{% static 'images/user_icon.png' %}"
+            alt="プロフィール画像"
+          />
+        </a>
+      </div>
+
+      <p>{{ post.user.custom_username }}</p>
+    </div>
+    <div class="post-message">
+      <p>{{ post.content }}</p>
+      {% if post.image %}
+      <img
+        src="{{ post.image.url }}"
+        alt="Post Image"
+        style="max-width: 200px"
+      />
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="post_flex_box">
+    <!-- TODO:yyyy/mm/dd形式に変換 -->
+    <p class="mr-20">投稿日: {{ post.created_at }}</p>
+
+    <!-- TODO:onclickイベントと紐づけ -->
+    <div id="likes-{{ post.id }}" class="heart mr-5"></div>
+    <!-- <button onclick="likePost('{{post.id}}')">いいねする</button> -->
+
+    <a href="{% url 'liked_users' post.id %}" class="like_count mr-20">：0</a>
+
+    <!--  -->
+    {% if post.user == request.user %}
+    <a href="{% url 'edit_post' post.id %}">
+      <img src="{% static 'images/pen_icon.png' %}" alt="編集" class="icon_image mr-20" />
+    </a>
+
+    <!-- TODO:onclickイベントと紐づけ -->
+    <img src="{% static 'images/garbage_can_icon.png' %}" alt="削除" class="icon_image mr-20" />
+    <!-- <form
+      method="post"
+      action="{% url 'delete_post' post.id %}"
+      style="display: inline"
+    >
+      {% csrf_token %}
+      <button
+        type="submit"
+        onclick="return confirm('投稿を削除してよろしいでしょうか？')"
+      >
+        削除
+      </button> -->
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+<!-- -->
+{% csrf_token %}
+<script>
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  const likePost = async (postId) => {
+    try {
+      const response = await fetch(`/like_post/${postId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ postId: postId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('通信に失敗しました。');
+      }
+
+      const data = await response.json();
+      updateLikesCount(postId, data.like_count);
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const updateLikesCount = (postId, likesCount) => {
+    const likesElement = document.getElementById(`likes-${postId}`);
+    if (likesElement) {
+      likesElement.textContent = `いいね: ${likesCount}`;
+    }
+  };
+</script>

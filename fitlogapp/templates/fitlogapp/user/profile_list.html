@@ -1,0 +1,9 @@
+{% extends "fitlogapp/components/base.html" %} {% block page_content %}
+<h2>ユーザー一覧</h2>
+{% for profile_dto in profile_list %}
+<!-- プロフィール情報を表示 -->
+{% include "fitlogapp/components/profile.html" %}
+<!--  -->
+{% endfor%}
+<!--  -->
+{% endblock page_content %}

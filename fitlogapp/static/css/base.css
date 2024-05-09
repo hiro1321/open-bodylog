@@ -1,0 +1,623 @@
+:root {
+  --color-block: #22211d;
+  --color-white: #fff;
+  --color-main: #0600ff;
+  --color-sub: #d1e5ff;
+  --color-accent: #ffbd4c;
+  --fontsize-normal: 0.9em;
+  --fontsize-strong: 1.2em;
+  --footer-height: 70px;
+}
+/* ===============================================
+共通
+=============================================== */
+body {
+  background: #fffaf2;
+  width: 100%;
+  /* フォント設定 */
+  color: 22211D;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.2px;
+  color: var(--color-block);
+  margin: 0;
+  margin-bottom: var(--footer-height);
+}
+
+a,
+p {
+  font-size: var(--fontsize-normal);
+}
+.main-container {
+  position: relative;
+  max-width: 800px;
+  min-height: calc(100vh - var(--footer-height));
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: var(--color-white);
+  padding: 0 15px;
+}
+
+p {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+h2 {
+  font-weight: 800;
+  font-family: 'Rampart One', sans-serif;
+  font-size: 1.8rem;
+  font-style: normal;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 30px;
+  background-color: var(--color-main);
+  z-index: -1;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+}
+
+h2::after {
+  right: 0;
+  bottom: 0;
+  clip-path: polygon(100% 60%, 0% 100%, 100% 100%);
+  animation-name: slideInFromRight;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: center;
+}
+
+.strong {
+  font-size: var(--fontsize-strong);
+  font-weight: 600;
+  margin: 0 2px;
+}
+
+/* ===============================================
+共通：ボタン
+=============================================== */
+.btn {
+  text-decoration: none;
+  color: var(--color-block);
+  text-align: center;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+  background-color: var(--color-sub);
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.374);
+  border-radius: 10px;
+}
+
+/* ===============================================
+ログイン後のナビバー
+=============================================== */
+.loggedin_navbar {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-main);
+  margin: 0;
+  transform: translateX(100%);
+  transition: ease-in 0.3s;
+  padding-top: 20px;
+  padding-left: 20px;
+  z-index: 10;
+}
+
+.loggedin_navbar.open {
+  transform: translateX(20%);
+}
+
+.loggedin_navbar > a {
+  display: block;
+  left: auto;
+  padding: 10px 5px;
+  text-decoration: none;
+  font-size: var(--fontsize-strong);
+  font-weight: 600;
+  color: var(--color-block);
+  margin-bottom: 20px;
+  border-top: solid var(--color-white) 0.5px;
+  border-left: solid var(--color-white) 0.5px;
+  background-color: var(--color-white);
+  position: relative;
+}
+.hamburger {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 11;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: var(--color-main);
+  cursor: pointer;
+  border: none;
+}
+
+.hamburger_span {
+  position: absolute;
+  width: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hamburger span,
+.hamburger span::after,
+.hamburger span::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(50%);
+  display: block;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.5s;
+}
+.hamburger span::before {
+  transform: translateY(-8px);
+}
+.hamburger span::after {
+  transform: translateY(6px);
+}
+.hamburger.open span {
+  background-color: transparent;
+}
+.hamburger.open span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+.hamburger.open span::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/* ===============================================
+ログイン後のフッターメニュー
+=============================================== */
+.loggedin_footer_menu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: var(--footer-height);
+  bottom: 0px;
+  background-color: var(--color-main);
+  display: flex;
+  align-items: center;
+  z-index: 11;
+}
+
+.loggedin_footer_menu > ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.loggedin_footer_menu li {
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+}
+
+.loggedin_footer_menu img {
+  width: 100%;
+  height: auto;
+}
+
+/* ===============================================
+投稿のスタイル
+=============================================== */
+.post_container {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.post_flex_box {
+  display: flex;
+  align-items: center;
+}
+
+.post_author {
+  width: 20%;
+}
+
+.post_author > p {
+  text-align: center;
+}
+
+.post_author_image {
+  background-color: var(--color-sub);
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  border-radius: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.post_author_image img {
+  width: 100%;
+}
+
+.post-message {
+  position: relative;
+  display: inline-block;
+  padding: 7px 10px;
+  min-height: 100px;
+  width: 100%;
+  max-width: 75%;
+  font-size: 16px;
+  background: var(--color-sub);
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.post-message:before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: -25px;
+  margin-top: -13px;
+  border: 13px solid transparent;
+  border-right: 14px solid var(--color-sub);
+  z-index: 2;
+}
+
+.post-message p {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 2px;
+}
+
+.heart {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+.heart::before,
+.heart::after {
+  content: '';
+  width: 50%;
+  height: 80%;
+  background-color: #a9a9a9;
+  /* background: #e0548e; */
+  border-radius: 25px 25px 0 0;
+  display: block;
+  position: absolute;
+}
+.heart::before {
+  transform: rotate(-45deg);
+  left: 14%;
+}
+.heart::after {
+  transform: rotate(45deg);
+  right: 14%;
+}
+.like_count {
+  text-decoration: none;
+}
+
+.icon_image {
+  height: 25px;
+  width: 25px;
+}
+
+/* ===============================================
+トレーニング記録(種目選択)のスタイル
+=============================================== */
+.muscle_part_box {
+  border: var(--color-block) solid 1px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.muscle_part_title p {
+  font-size: var(--fontsize-strong);
+  text-align: center;
+  font-weight: 500;
+}
+
+.muscle_part_content_box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 3列の等幅グリッド */
+  grid-gap: 10px;
+  padding: 20px;
+}
+
+.muscle_part_content_item {
+  text-decoration: none;
+  color: var(--color-block);
+  background-color: var(--color-sub);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  min-height: 80px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ===============================================
+input type=range
+=============================================== */
+
+.input-record-box {
+  margin-bottom: 40px;
+}
+
+.input-record-box > label {
+  font-size: var(--fontsize-strong);
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 20px;
+}
+
+input[type='range'] {
+  margin: 20px 0;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  background: var(--color-sub);
+  height: 8px;
+  border-radius: 8px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 30px;
+  width: 30px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+}
+
+input[type='number'].input-record-num {
+  border: none;
+  border-bottom: 3px solid var(--color-main);
+  width: 80px;
+  text-align: center;
+  display: block;
+  font-size: var(--fontsize-strong);
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 5px;
+}
+
+.input-record-unit {
+  font-size: var(--fontsize-strong);
+  font-weight: 600;
+}
+
+/* ===============================================
+プロフィールの表示
+=============================================== */
+.profile_box {
+  border: 1px solid var(--color-main);
+  margin: 10px auto 50px auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.profile_flex_box {
+  display: flex;
+}
+
+.profile_left_box {
+  width: 30%;
+}
+
+.profile_image {
+  background-color: var(--color-sub);
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0px 0px 10px var(--color-main);
+}
+.profile_left_box img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.profile_right_box {
+  padding-left: 20px;
+}
+
+p.profile_name {
+  font-size: var(--fontsize-strong);
+  color: var(--color-main);
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.link_text {
+  display: block;
+  text-decoration: none;
+  color: var(--color-block);
+}
+
+.profile_box .btn {
+  padding: 10px;
+}
+
+.al-center {
+  align-items: center;
+}
+
+/* ===============================================
+マイページのレイアウト
+=============================================== */
+
+.content_tag {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.content_tag > a {
+  display: block;
+  border: 1px solid var(--color-main);
+  padding: 3px;
+  border-radius: 5px 5px 0 0;
+  transform: translateY(1px);
+  background-color: rgb(217, 217, 217);
+  z-index: 0;
+}
+
+.content_tag > a.active {
+  background-color: white;
+  border-bottom: none;
+  z-index: 1;
+}
+
+.my_container {
+  overflow: hidden;
+  border: 1px solid var(--color-main);
+  z-index: 1;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.my_contents {
+  flex: 0 0 100%;
+}
+
+/* ===============================================
+チャートのレイアウト
+=============================================== */
+.workout_radio_box {
+  position: relative;
+  border: 1px solid black;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.workout_radio_title {
+  position: absolute;
+  top: -25px;
+  background-color: var(--color-white);
+  left: 10px;
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+input[type='radio'] + label {
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+input[type='radio']:checked + label {
+  background-color: var(--color-main);
+  color: var(--color-white);
+}
+
+.workout_flex_box {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#setInputs {
+  display: none;
+}
+
+#setInputs.setInputsActive {
+  display: block;
+}
+
+.workout_btn {
+  padding: 5px 20px;
+}
+
+#lineChart {
+ 
+}

@@ -1,8 +1,8 @@
-<!-- add_workout.html -->
-
+{% extends "fitlogapp/components/base.html" %} {% block page_content %}
 <h2>体重の記録を追加</h2>
 
 <form method="post">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Save</button>
 </form>
+{% endblock page_content %}

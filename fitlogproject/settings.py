@@ -87,7 +87,7 @@ USE_I18N = True
 USE_TZ = False
 
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -109,3 +109,5 @@ BASE_URL = env("BASE_URL")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+LOGIN_URL = "/login/"
