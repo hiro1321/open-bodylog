@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:80
     ports:
       - '8000:8000'
     volumes:
@@ -17,3 +17,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
