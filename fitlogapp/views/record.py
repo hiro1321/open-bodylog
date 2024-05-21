@@ -4,7 +4,7 @@ from ..models import Exercise, MusclePart, Workout, BodyWeight
 from django.contrib import messages
 from django.utils import timezone
 from ..forms import BodyWeightForm, WorkoutForm
-
+import os
 
 RECORD_DIR = "fitlogapp/record/"
 
@@ -84,7 +84,6 @@ def delete_bodyweight(request, bodyweight_id):
 def select_exercise(request):
     """トレーニング記録の追加(種目を選択)"""
     muscle_parts = MusclePart.objects.all().order_by("pk")
-
     exercises_by_part = []
     for part in muscle_parts:
         exercises = Exercise.objects.filter(muscle_part=part)
