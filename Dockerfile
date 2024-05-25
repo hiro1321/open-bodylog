@@ -7,8 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 # 必要なパッケージのインストール
 RUN apt-get update \
-    && apt-get install -y certbot python3-certbot-nginx \
-
+    && apt-get install -y apt-utils certbot python3-certbot-nginx \
         libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
