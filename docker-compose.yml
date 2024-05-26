@@ -3,8 +3,12 @@ version: '3'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
+    expose:
+      - '8000'
     volumes:
       - .:/code
     depends_on:
@@ -13,7 +17,9 @@ services:
       - webnet
 
   nginx:
-    image: nginx:latest
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
       - '80:80'
     depends_on:
