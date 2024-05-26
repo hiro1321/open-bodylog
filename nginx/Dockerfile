@@ -11,5 +11,5 @@ RUN chmod +x /etc/nginx/generate-certs.sh
 # 証明書ディレクトリのマウント
 VOLUME ["/etc/letsencrypt"]
 
-ENTRYPOINT ["/etc/nginx/generate-certs.sh"]
+# nginxを起動するためのCMDを指定
 CMD ["nginx", "-g", "daemon off;"]
