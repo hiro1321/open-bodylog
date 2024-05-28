@@ -17,7 +17,7 @@ services:
       - webnet
 
   db:
-    image: postgres:latest
+    image: postgres:16
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=myuser
