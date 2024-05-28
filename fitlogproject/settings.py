@@ -10,6 +10,14 @@ SECRET_KEY = "django-insecure-d#_!^1)-diu)l&&hd^w+oy(n_m1)u(qo%x6co00*zidc68$$_j
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = [
+        "https://openbodylog.com",
+        "https://www.openbodylog.com",
+    ]
+
+    CSRF_COOKIE_SECURE = True
+
 
 ALLOWED_HOSTS = ["*"]
 
