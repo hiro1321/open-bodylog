@@ -4,6 +4,7 @@ import os
 
 AUTH_USER_MODEL = "fitlogapp.CustomUser"
 BASE_DIR = Path(__file__).resolve().parent.parent
+os.environ["BASE_DIR"] = str(BASE_DIR)
 
 
 SECRET_KEY = "django-insecure-d#_!^1)-diu)l&&hd^w+oy(n_m1)u(qo%x6co00*zidc68$$_j"
@@ -62,7 +63,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "fitlogproject.wsgi.application"
 
-
+# 開発環境用
+# DEBUG = True
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -70,6 +72,7 @@ WSGI_APPLICATION = "fitlogproject.wsgi.application"
 #     }
 # }
 
+# 本番環境用
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -108,6 +111,7 @@ USE_TZ = False
 
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
