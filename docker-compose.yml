@@ -16,17 +16,6 @@ services:
     networks:
       - webnet
 
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - '80:80'
-    depends_on:
-      - web
-    networks:
-      - webnet
-
   db:
     image: postgres:latest
     environment:
