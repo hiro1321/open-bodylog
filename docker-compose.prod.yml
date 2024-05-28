@@ -7,3 +7,6 @@ services:
       - '8000:8000'
     environment:
       - DEBUG=False
+    volumes:
+      - .:/code
+      - /home/ubuntu/open_fit_log/open-bodylog/staticfiles/:/code/staticfiles # 静的ファイルのマウントを確認
