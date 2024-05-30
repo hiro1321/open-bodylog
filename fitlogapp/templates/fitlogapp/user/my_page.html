@@ -26,12 +26,11 @@
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     const slider = document.querySelector('.slider');
-    let translateValue = 0;
-    const sliderWidth = slider.clientWidth;
     const contentWidth = document.querySelector('.my_contents').clientWidth;
     let contentNum = 1;
     const contentTag = document.querySelector('.content_tag');
     const tagList = contentTag.querySelectorAll('a');
+    let translateValue = 0;
 
     const nextContents = () => {
       const tmpContentNum = contentNum + 1;
@@ -51,20 +50,14 @@
       if (checkContentNum <= 0) {
         return false;
       }
-
       const lastContentNum = document.querySelectorAll('.my_contents').length;
-      if (lastContentNum < checkContentNum) {
-        return false;
-      }
-
-      return true;
+      return checkContentNum <= lastContentNum;
     };
 
     const updateScreen = (targetContentNum) => {
       contentNum = targetContentNum;
       translateValue = (contentNum - 1) * contentWidth * -1;
       slider.style.transform = `translateX(${translateValue}px)`;
-
       tagList.forEach((tag) => {
         tag.classList.remove('active');
       });
@@ -82,21 +75,23 @@
     });
 
     slider.addEventListener('touchstart', (event) => {
-      touchStartX = event.touches[0].pageX;
+      touchStartX = event.touches[0].clientX;
     });
 
     slider.addEventListener('touchmove', (event) => {
-      touchEndX = event.touches[0].pageX;
+      touchEndX = event.touches[0].clientX;
     });
 
     slider.addEventListener('touchend', (event) => {
       const deltaX = touchEndX - touchStartX;
-
-      if (deltaX > 5) {
+      if (deltaX > 50) {
         prevContents();
-      } else if (deltaX < -5) {
+      } else if (deltaX < -50) {
         nextContents();
       }
+      // タッチイベントのリセット
+      touchStartX = 0;
+      touchEndX = 0;
     });
   });
 </script>
