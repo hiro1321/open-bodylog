@@ -76,20 +76,23 @@
 
     tagList.forEach((tag, index) => {
       tag.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent the default link action
+        event.preventDefault();
         updateScreen(index + 1);
       });
     });
 
     slider.addEventListener('touchstart', (event) => {
+      event.preventDefault();
       touchStartX = event.touches[0].clientX;
     });
 
     slider.addEventListener('touchmove', (event) => {
+      event.preventDefault();
       touchEndX = event.touches[0].clientX;
     });
 
     slider.addEventListener('touchend', (event) => {
+      event.preventDefault();
       const deltaX = touchEndX - touchStartX;
 
       if (deltaX > 5) {
