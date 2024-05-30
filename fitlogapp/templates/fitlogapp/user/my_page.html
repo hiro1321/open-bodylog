@@ -17,7 +17,7 @@
       {% include "fitlogapp/components/posts.html"%}
     </div>
     <div class="my_contents my_posts">
-      <p>マイページ</p>
+      <p>自分の投稿</p>
       {% include "fitlogapp/components/posts.html"%}
     </div>
   </div>
@@ -99,9 +99,9 @@
   slider.addEventListener('touchend', (event) => {
     const deltaX = touchEndX - touchStartX;
 
-    if (deltaX > 50) {
+    if (deltaX > 5) {
       prevContents();
-    } else if (deltaX < -50) {
+    } else if (deltaX < -5) {
       nextContents();
     }
   });
