@@ -83,12 +83,12 @@
 
     slider.addEventListener('touchstart', (event) => {
       event.preventDefault();
-      touchStartX = event.touches[0].clientX;
+      touchStartX = event.touches[0].pageX;
     });
 
     slider.addEventListener('touchmove', (event) => {
       event.preventDefault();
-      touchEndX = event.touches[0].clientX;
+      touchEndX = event.touches[0].pageX;
     });
 
     slider.addEventListener('touchend', (event) => {
