@@ -24,87 +24,80 @@
 </div>
 
 <script>
-  const slider = document.querySelector('.slider');
-  let translateValue = 0;
-  const sliderWidth = slider.clientWidth;
-  const contentWidth = document.querySelector('.my_contents').clientWidth;
-  let contentNum = 1;
-  const contentTag = document.querySelector('.content_tag');
-  const tagList = contentTag.querySelectorAll('a');
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const slider = document.querySelector('.slider');
+    let translateValue = 0;
+    const sliderWidth = slider.clientWidth;
+    const contentWidth = document.querySelector('.my_contents').clientWidth;
+    let contentNum = 1;
+    const contentTag = document.querySelector('.content_tag');
+    const tagList = contentTag.querySelectorAll('a');
 
-  const nextContents = () => {
-    const tmpContentNum = contentNum + 1;
-    if (isExistSlider(tmpContentNum)) {
-      updateScreen(tmpContentNum);
-    }
-  };
+    const nextContents = () => {
+      const tmpContentNum = contentNum + 1;
+      if (isExistSlider(tmpContentNum)) {
+        updateScreen(tmpContentNum);
+      }
+    };
 
-  const prevContents = () => {
-    const tmpContentNum = contentNum - 1;
-    if (isExistSlider(tmpContentNum)) {
-      updateScreen(tmpContentNum);
-    }
-  };
+    const prevContents = () => {
+      const tmpContentNum = contentNum - 1;
+      if (isExistSlider(tmpContentNum)) {
+        updateScreen(tmpContentNum);
+      }
+    };
 
-  /**
-   * 対象のコンテンツが存在するかをチェック
-   * @param checkContentNum チェック対象の値
-   * @return 判定結果
-   */
-  const isExistSlider = (checkContentNum) => {
-    // 最初のコンテンツより前の場合はfalse
-    if (checkContentNum <= 0) {
-      return false;
-    }
+    const isExistSlider = (checkContentNum) => {
+      if (checkContentNum <= 0) {
+        return false;
+      }
 
-    // 最後のコンテンツより後の場合はfalse
-    const lastContentNum = document.querySelectorAll('.my_contents').length;
-    if (lastContentNum < checkContentNum) {
-      return false;
-    }
+      const lastContentNum = document.querySelectorAll('.my_contents').length;
+      if (lastContentNum < checkContentNum) {
+        return false;
+      }
 
-    return true;
-  };
+      return true;
+    };
 
-  const updateScreen = (targetContentNum) => {
-    contentNum = targetContentNum;
-    console.log(contentWidth);
-    translateValue = (contentNum - 1) * contentWidth * -1;
-    console.log(translateValue);
-    slider.style.transform = `translateX(${translateValue}px)`;
+    const updateScreen = (targetContentNum) => {
+      contentNum = targetContentNum;
+      translateValue = (contentNum - 1) * contentWidth * -1;
+      slider.style.transform = `translateX(${translateValue}px)`;
 
-    tagList.forEach((tag) => {
-      tag.classList.remove('active');
+      tagList.forEach((tag) => {
+        tag.classList.remove('active');
+      });
+      tagList[contentNum - 1].classList.add('active');
+    };
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    tagList.forEach((tag, index) => {
+      tag.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the default link action
+        updateScreen(index + 1);
+      });
     });
-    tagList[contentNum - 1].classList.add('active');
-  };
 
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  tagList.forEach((tag, index) => {
-    tag.addEventListener('click', (event) => {
-      event.preventDefault();
-      updateScreen(index + 1);
+    slider.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0].clientX;
     });
-  });
 
-  slider.addEventListener('touchstart', (event) => {
-    touchStartX = event.touches[0].clientX;
-  });
+    slider.addEventListener('touchmove', (event) => {
+      touchEndX = event.touches[0].clientX;
+    });
 
-  slider.addEventListener('touchmove', (event) => {
-    touchEndX = event.touches[0].clientX;
-  });
+    slider.addEventListener('touchend', (event) => {
+      const deltaX = touchEndX - touchStartX;
 
-  slider.addEventListener('touchend', (event) => {
-    const deltaX = touchEndX - touchStartX;
-
-    if (deltaX > 5) {
-      prevContents();
-    } else if (deltaX < -5) {
-      nextContents();
-    }
+      if (deltaX > 5) {
+        prevContents();
+      } else if (deltaX < -5) {
+        nextContents();
+      }
+    });
   });
 </script>
 
