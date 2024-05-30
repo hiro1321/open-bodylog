@@ -328,6 +328,7 @@ h2::after {
   border: 13px solid transparent;
   border-right: 14px solid var(--color-sub);
   z-index: 2;
+  pointer-events: none;
 }
 
 .post-message p {
@@ -351,6 +352,7 @@ h2::after {
   border-radius: 25px 25px 0 0;
   display: block;
   position: absolute;
+  pointer-events: none;
 }
 .heart::before {
   transform: rotate(-45deg);
@@ -558,6 +560,7 @@ p.profile_name {
 .slider {
   display: flex;
   transition: transform 0.3s ease;
+  position: relative;
 }
 
 .my_contents {
@@ -619,5 +622,4 @@ input[type='radio']:checked + label {
 }
 
 #lineChart {
- 
 }
