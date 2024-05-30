@@ -74,15 +74,15 @@
       });
     });
 
-    slider.addEventListener('touchstart', (event) => {
+    document.addEventListener('touchstart', (event) => {
       touchStartX = event.touches[0].clientX;
     });
 
-    slider.addEventListener('touchmove', (event) => {
+    document.addEventListener('touchmove', (event) => {
       touchEndX = event.touches[0].clientX;
     });
 
-    slider.addEventListener('touchend', (event) => {
+    document.addEventListener('touchend', (event) => {
       const deltaX = touchEndX - touchStartX;
       if (deltaX > 50) {
         prevContents();
