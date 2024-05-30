@@ -84,6 +84,7 @@
 
   tagList.forEach((tag, index) => {
     tag.addEventListener('click', (event) => {
+      event.preventDefault();
       updateScreen(index + 1);
     });
   });
