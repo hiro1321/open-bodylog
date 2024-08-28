@@ -53,32 +53,40 @@ p {
 
 h2 {
   font-weight: 800;
-  font-family: 'Rampart One', sans-serif;
   font-size: 1.8rem;
   font-style: normal;
   text-align: center;
   position: relative;
   z-index: 1;
   padding: 10px;
+  letter-spacing: 0 2em;
 }
 
 h2::after {
   content: '';
   position: absolute;
   display: block;
-  width: 100%;
-  height: 30px;
+  width: 70%;
+  height: 3px;
+  left: 50%;
+  bottom: 0px;
   background-color: var(--color-main);
   z-index: -1;
+  transform: translateX(-50%) scaleX(0); /* 初期状態で幅が0 */
+  transform-origin: center; /* アニメーションの起点を中央に設定 */
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
+  animation-name: slideInFromCenter;
+  animation-fill-mode: forwards;
 }
 
-h2::after {
-  right: 0;
-  bottom: 0;
-  clip-path: polygon(100% 60%, 0% 100%, 100% 100%);
-  animation-name: slideInFromRight;
+@keyframes slideInFromCenter {
+  from {
+    transform: translateX(-50%) scaleX(0); /* 初期状態: 中央から幅0 */
+  }
+  to {
+    transform: translateX(-50%) scaleX(1); /* 終了状態: 幅100% */
+  }
 }
 
 @keyframes slideInFromLeft {
@@ -89,16 +97,6 @@ h2::after {
     transform: translateX(0);
   }
 }
-
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
 .mt-5 {
   margin-top: 5px;
 }
@@ -150,6 +148,80 @@ h2::after {
   border: 1px solid black;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.374);
   border-radius: 10px;
+}
+
+/* ===============================================
+ログインページ
+=============================================== */
+
+.login-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
+  border: solid 1px var(--color-block);
+  margin: 0 auto;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+input {
+  box-sizing: border-box;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555555;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #0056b3;
+}
+
+.signup-link {
+  margin-top: 20px;
+  color: #555555;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
 }
 
 /* ===============================================
@@ -469,7 +541,7 @@ input[type='number'].input-record-num {
 プロフィールの表示
 =============================================== */
 .profile_box {
-  border: 1px solid var(--color-main);
+  border: 1px solid var(--color-block);
   margin: 10px auto 50px auto;
   padding: 20px;
   border-radius: 5px;
