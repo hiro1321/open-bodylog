@@ -40,6 +40,10 @@ p {
   padding: 0 15px;
 }
 
+.main-container.unauthenticated {
+  min-height: auto;
+}
+
 p {
   margin-block-start: 1em;
   margin-block-end: 1em;
@@ -307,6 +311,61 @@ input {
 .hamburger.open span::after {
   bottom: 0;
   transform: rotate(-45deg);
+}
+
+/* ===============================================
+ログイン前のフッターメニュー
+=============================================== */
+footer {
+  background-color: #000; /* 背景を黒に設定 */
+  color: #fff; /* 文字色を白に設定 */
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.footer-content h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.footer-content p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.footer-content .socials {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-content .socials li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer-content .socials a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+.footer-content .socials a:hover {
+  color: #f0a500; /* ホバー時の色 */
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 12px;
+  border-top: 1px solid #333;
+  padding-top: 10px;
 }
 
 /* ===============================================

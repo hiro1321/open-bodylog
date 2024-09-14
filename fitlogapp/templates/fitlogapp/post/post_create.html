@@ -1,4 +1,6 @@
-{% extends "fitlogapp/components/base.html" %} {% block page_content %}
+{% extends "fitlogapp/components/base_authenticated.html" %}
+<!--  -->
+{% block page_content %}
 <h2>投稿する</h2>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %} {{ form.as_p }}

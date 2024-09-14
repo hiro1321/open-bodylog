@@ -1,4 +1,6 @@
-{% extends "fitlogapp/components/base.html" %} {% block page_content %}
+{% extends "fitlogapp/components/base_authenticated.html" %}
+<!--  -->
+{% block page_content %}
 <h2>トレーニング記録一覧</h2>
 <a href="{% url 'add_workout' %}">追加</a>
 <ul>

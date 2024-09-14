@@ -1,4 +1,6 @@
-{% extends "fitlogapp/components/base.html" %} {% block page_content %}
+{% extends "fitlogapp/components/base_authenticated.html" %}
+<!--  -->
+{% block page_content %}
 <h2>投稿を削除</h2>
 <p>投稿を削除してよろしいでしょうか？ "{{ post.content }}"?</p>
 <form method="post">
