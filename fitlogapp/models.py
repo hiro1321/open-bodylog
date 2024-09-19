@@ -45,6 +45,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     verification_code_created_at = models.DateTimeField(
         "認証コード作成日時", blank=True, null=True
     )
+    change_password_flg = models.BooleanField("パスワード変更フラグ", default=False)
+    change_password_code = models.CharField(
+        "パスワード変更認証コード", max_length=100, blank=True, null=True
+    )
+    change_password_code_created_at = models.DateTimeField(
+        "パスワード変更認証コード作成日時", blank=True, null=True
+    )
 
     objects = CustomUserManager()
 

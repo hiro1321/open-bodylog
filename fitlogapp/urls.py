@@ -11,7 +11,7 @@ from .views import post as post_views
 urlpatterns = [
     path("", top_views.top_page, name="top_page"),
     # ユーザー認証機能
-    path("register/", account_views.register, name="register"),
+    path("signup/", account_views.signup, name="signup"),
     path(
         "verify/<str:verification_code>/",
         account_views.verify_email,

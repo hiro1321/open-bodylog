@@ -1,5 +1,3 @@
-# accounts/views.py
-
 from django.shortcuts import render
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.utils.crypto import get_random_string
@@ -17,12 +15,13 @@ from smtplib import SMTP
 from email.mime.text import MIMEText
 import ssl
 
+from ..services import account_service
 
 ssl._create_default_https_context = ssl._create_unverified_context
 User = get_user_model()
 
 
-def register(request):
+def signup(request):
     """ユーザー登録のview"""
     # TODO:user名に使える文字をあるアルファベットと_のみにする
     # TODO:user名のほかに別名を登録できるようにする
@@ -59,8 +58,8 @@ def register(request):
                 msg["To"] = email
                 server.send_message(msg)
 
-            return render(request, "fitlogapp/accounts/register_done.html")
-    return render(request, "fitlogapp/accounts/register.html")
+            return render(request, "fitlogapp/accounts/signup_done.html")
+    return render(request, "fitlogapp/accounts/signup.html")
 
 
 def verify_email(request, verification_code):
