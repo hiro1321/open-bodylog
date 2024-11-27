@@ -17,6 +17,7 @@ urlpatterns = [
         account_views.verify_email,
         name="verify_email",
     ),
+    path("user_register/", account_views.user_register, name="user_register"),
     path("login/", account_views.user_login, name="login"),
     path("logout/", account_views.user_logout, name="logout"),
     # 体重記録機能

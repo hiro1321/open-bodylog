@@ -22,6 +22,10 @@ if not DEBUG:
 
 ALLOWED_HOSTS = ["*"]
 
+# セッションの有効期限を30分に設定
+SESSION_COOKIE_AGE = 30 * 60
+# すべてのリクエストで有効期限を更新
+SESSION_SAVE_EVERY_REQUEST = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -41,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "fitlogapp.middleware.CustomUsernameRequiredMiddleware",
 ]
 
 ROOT_URLCONF = "fitlogproject.urls"
@@ -64,25 +69,25 @@ TEMPLATES = [
 WSGI_APPLICATION = "fitlogproject.wsgi.application"
 
 # 開発環境用
-DEBUG = True
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
-# 本番環境用
+# DEBUG = True
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "myuser",  # TODO:user名,passwordを更新すること
-#         "PASSWORD": "mypassword",
-#         "HOST": "db",
-#         "PORT": "5432",
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+
+# 本番環境用
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "myuser",  # TODO:user名,passwordを更新すること
+        "PASSWORD": "mypassword",
+        "HOST": "db",
+        "PORT": "5432",
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [

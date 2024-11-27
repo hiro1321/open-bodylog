@@ -1,11 +1,13 @@
 from django.utils import timezone
 from django.db import connection
+
 import json
 from ..models import Exercise, Workout, BodyWeight, CustomUser
 from ..objects.line_config import LineConfig, Data, DataSet
 from ..objects.chart_request_dto import ChartRequestDto
 from typing import List, Tuple
 from datetime import datetime
+from ..models import CustomUser
 from . import utils_service as utils
 
 
@@ -14,8 +16,37 @@ def signup_validate(request):
     return
 
 
-def is_user_registered():
-    return
+def check_email_exists(email) -> bool:
+    """
+    emailが登録済みか否か（メールアドレスが一致  and メール認証フラグ=True）
+
+    Args:
+        email:メールアドレス
+    Returns:
+        bool:ユーザー登録済みか
+    """
+    users = CustomUser.objects.filter(email=email, is_email_verified=True)
+    return users.count() >= 1
+
+
+def is_username_taken(username) -> bool:
+    """
+    ユーザー名が登録済みか否か
+
+    Args:
+        username:ユーザー名
+    Returns:
+        bool:ユーザー名が使われているか否か
+    """
+    return CustomUser.objects.filter(custom_username=username).exists()
+
+
+# def is_username_taken(user_name) -> bool:
+#     """
+#     ユーザーが使用済みか否か
+#     """
+#     users = CustomUser.objects.filter(custom_username=user_name)
+#     return users.count() >= 1
 
 
 # def create_chart_config(chart_request_dto: ChartRequestDto):

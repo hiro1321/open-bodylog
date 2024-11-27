@@ -35,7 +35,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         "メールアドレス",
         unique=True,
     )
-    custom_username = models.CharField("ユーザー名", max_length=150, unique=True)
+    custom_username = models.CharField(
+        "ユーザー名", max_length=150, unique=True, null=True
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_email_verified = models.BooleanField("メール認証フラグ", default=False)

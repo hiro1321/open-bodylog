@@ -155,6 +155,24 @@ h2::after {
 }
 
 /* ===============================================
+メッセージ
+=============================================== */
+.message-box {
+  /* border: 1px solid var(--color-block); */
+  text-align: left;
+  padding: 10px;
+  /* border-radius: 10px; */
+}
+
+.message-box .error {
+  color: red;
+}
+
+.message-box .success {
+  color: var(--color-main);
+}
+
+/* ===============================================
 ログインページ
 =============================================== */
 

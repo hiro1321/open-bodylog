@@ -1,0 +1,40 @@
+{% extends "fitlogapp/components/base_unauthenticated.html" %}
+<!--  -->
+{% block page_content %}
+<h2>認証コードの入力</h2>
+<p>以下のメールアドレスに認証コードを送信しました:</p>
+<p><strong>{{ email }}</strong></p>
+
+<div class="login-container">
+  <h2>h2</h2>
+  {% if messages %} {% endif %}
+  <form method="post" action="{% url 'verify_code' %}">
+    {% csrf_token %}
+
+    <div class="input-group">
+      <label for="verification_code">認証コード:</label>
+      <input
+        type="text"
+        id="verification_code"
+        name="verification_code"
+        required
+        maxlength="6"
+      />
+    </div>
+
+    <button type="submit" class="login-btn">認証</button>
+  </form>
+
+  <form method="POST" action="{% url 'resend_code' %}" style="margin-top: 10px">
+    {% csrf_token %}
+    <button type="submit">認証コードを再送する</button>
+  </form>
+
+  <div class="message-box">
+    {% for message in messages %}
+    <li class="{{message.tags}}">{{ message }}</li>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock page_content %}

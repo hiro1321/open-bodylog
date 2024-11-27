@@ -1,9 +1,64 @@
 {% extends "fitlogapp/components/base_unauthenticated.html" %}
 <!--  -->
 {% block page_content %}
-
+<!--  -->
+{% load static %}
 <div class="main_content">
-  <h2>トップページ</h2>
-</div>
+  <h2>Open Body Log</h2>
+  <h3>筋トレの記録を可視化して共有するSNSサービス</h3>
+  <p>
+    自分のトレーニング記録をグラフで確認することができます。<br />
+    今の自分に最適なトレーニングメニューが分からないなら、参考になるユーザーをフォローしてもいいです。<br />
+    OpenBodyLogの活用で、効果的でより充実した筋トレＬｉｆｅにしましょう。
+  </p>
+  <br /><br />
+  <a href='{% url "login" %}' style="max-width: 300px" class="btn">
+    ログイン
+  </a>
+  <a
+    href='{% url "signup" %}'
+    style="display: block; text-align: center; margin-top: 20px"
+  >
+    まだ登録したいない方はこちら</a
+  >
+  <br /><br />
+  <hr />
 
+  <br /><br />
+
+  <img
+    src="{% static 'images/top_training.png' %}"
+    alt="トレーニングのimage"
+    style="max-width: 300px"
+  />
+  <h3>①筋トレ記録の記録・可視化</h3>
+  「ベンチプレス」や「スクワット」などの筋トレメニューを選んで、重量と回数を入力します。<br />
+  自分のプロフィールページでトレーニング記録をグラフで確認できます。<br />
+  <h4>特徴</h4>
+  ・トレーニングのインターバル中に簡単に入力できます<br />
+  ・同じトレーニングメニューの前回の重量が分かります<br />
+  ・体重も記録できます<br />
+  ・直近1週間、直近1年間、全期間の単位で筋トレ記録をグラフで見れます<br />
+  ・MAX重量、セット重量を分けて成長をグラフで見れます<br />
+  <br />
+
+  <br /><br />
+
+  <img
+    src="{% static 'images/top_sns.png' %}"
+    alt="snsのimage"
+    style="max-width: 300px"
+  />
+  <h3>②SNS機能</h3>
+  <p>
+    他のユーザーと投稿やフォローを通じて交流ができます。<br />
+    参考になるユーザーを見つけて、トレーニングメニューを参考にしてみてはいかがでしょうか。
+  </p>
+  <h4>特徴</h4>
+  ・トレーニングや食事、日常のちょっとしたことを投稿できます。<br />
+  ・投稿に対して他のユーザーがコメントを残せます<br />
+  ・トレーニングや食事、日常のちょっとしたことを投稿できます。<br />
+  ・他のユーザーの筋トレ記録を見れます<br />
+  ・気になるユーザーをフォローできます<br />
+</div>
 {% endblock page_content %}

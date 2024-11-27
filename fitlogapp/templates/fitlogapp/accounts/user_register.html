@@ -1,0 +1,43 @@
+{% extends "fitlogapp/components/base_unauthenticated.html" %}
+<!--  -->
+{% block page_content %}
+<div class="login-container">
+  <h2>ユーザー設定</h2>
+  {% if messages %}
+  <div class="message-box">
+    {% for message in messages %}
+    <li class="{{message.tags}}">{{ message }}</li>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="input-group">
+      <label for="user_name">ユーザー名:</label>
+      <input
+        type="text"
+        id="user_name"
+        name="user_name"
+        value="{{user_name | default:''}}"
+        required
+      />
+    </div>
+    <div class="input-group">
+      <label for="profile_bio">プロフィール文:</label>
+      <textarea
+        id="profile_bio"
+        name="profile_bio"
+        rows="4"
+        cols="50"
+        maxlength="200"
+        placeholder="200文字以内で入力してください"
+      >
+{{profile_bio | default:''}}</textarea
+      >
+    </div>
+    <button type="submit" class="login-btn">登録</button>
+  </form>
+</div>
+
+{% endblock page_content %}
